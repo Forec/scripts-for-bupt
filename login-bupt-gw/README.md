@@ -1,4 +1,4 @@
-# GW-AutoLogin
+# GW-AutoLogin （网关登陆）
 > This project is a small script for **Login the GW** automatically, which is the gateway `10.3.8.211` for BUPT.
 
 ## Platform
@@ -10,3 +10,6 @@ Just run `python login.py <id> <pwd>`, you can write this as a `.sh` on Linux or
 ## Update-logs
 * 2016-9-04: Add `login.py`.
 * 2016-9-19: Fix problems for logining into `10.4.1.2`. Add `sleep` to avoid the initial time for system.
+
+## License
+All codes in this repository are licensed under the terms you may find in the file named "LICENSE" in this directory.

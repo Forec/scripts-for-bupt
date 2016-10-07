@@ -1,4 +1,4 @@
-# CAPTCHA Generator
+# CAPTCHA Generator （验证码生成器）
 > This project is a script for generating **CAPTCHA** automatically, you just need to assign your requirements, or use the default settings.
 
 ## Platform
@@ -10,3 +10,6 @@ The python version is 2.7, so just `python CAPTCHA.py <id> <pwd>`, the script wi
 
 ## Update-logs
 * 2016-9-19: Add `CAPTCHA.py`.
+
+## License
+All codes in this repository are licensed under the terms you may find in the file named "LICENSE" in this directory.

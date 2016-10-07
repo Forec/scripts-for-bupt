@@ -1,4 +1,4 @@
-# GPA-Calculator
+# GPA-Calculator （教务系统GPA免登陆计算）
 > This project is a script for calculating **GPA** automatically, you just need to input your username and password, even CAPTCHA is not needed, the script can deal with CAPTCHA itself.
 
 ## Platform
@@ -14,3 +14,6 @@ The python version is 2.7, so just `python gpa.py <id> <pwd>`, the script will r
 
 ## Update-logs
 * 2016-9-18: Add `gpa.py`.
+
+## License
+All codes in this repository are licensed under the terms you may find in the file named "LICENSE" in this directory.

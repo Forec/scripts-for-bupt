@@ -1,27 +1,11 @@
 #coding=utf-8
-
-# last edit date: 2016/09/19
-# author: Forec
-# LICENSE
-# Copyright (c) 2015-2017, Forec <forec@bupt.edu.cn>
-
-# Permission to use, copy, modify, and/or distribute this code for any
-# purpose with or without fee is hereby granted, provided that the above
-# copyright notice and this permission notice appear in all copies.
-
-# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
+__author__ = 'Forec'
 import time
 import sys
 import urllib
 import urllib2
 import cookielib
+import threading
   
 if len(sys.argv) != 3:
 	print "Usage: python2 login.py <id> <pwd>"
@@ -30,9 +14,6 @@ else:
 	username = sys.argv[1]
 	password = sys.argv[2]
 
-cookie = cookielib.CookieJar()
-opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))
-
 postdata=urllib.urlencode({
     'DDDDD': username,
     'upass': password,
@@ -40,18 +21,26 @@ postdata=urllib.urlencode({
     '0MKKey':''
 })
 
-time.sleep(5)
+class LoginThread(threading.Thread):
+    def __init__(self, postdata, url):
+        threading.Thread.__init__(self)
+        self.setDaemon(True)
+        self.url = url
+        self.postdata = postdata
+        self.cookie = cookielib.CookieJar()
+        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookie))
+    def run(self):
+        req = urllib2.Request(
+            url = self.url,
+            data = self.postdata
+        )
+        self.opener.open(req)
 
-req = urllib2.Request(
-    url = 'http://10.4.1.2',
-    data = postdata
-)
-opener.open(req)
+dorm = LoginThread(postdata, "http://10.3.8.211")
+teach = LoginThread(postdata, "http://10.4.1.2")
 
-time.sleep(2)
-
-req = urllib2.Request(
-    url = 'http://10.3.8.211',
-    data = postdata
-)
-opener.open(req)
+teach.start()
+time.sleep(1)
+if teach.isAlive():
+    dorm.start()
+    time.sleep(2)
